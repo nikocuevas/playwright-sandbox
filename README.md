@@ -8,3 +8,8 @@ cd playwright-sandbox
 npm install
 ```
 ***
+###### Running sample test
+```bash
+npm test
+```
+***
