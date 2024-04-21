@@ -38,3 +38,31 @@ test("sum demo", async({ page }) => {
     let expectedResult = num1 + num2;
     expect(result).toHaveText("" + expectedResult);
 });
+
+test.only("checkbox demo", async({ page }) => {
+    await page.goto("https://www.lambdatest.com/selenium-playground/checkbox-demo");
+    const singleCheckbox = await page.locator("id=isAgeSelected");
+    expect(singleCheckbox).not.toBeChecked();
+    await singleCheckbox.check();
+    expect(singleCheckbox).toBeChecked();
+    
+    const disabledCheckbox = await page.locator("(//label[text()='Option 3'])[1]/parent::div//input");
+    expect(disabledCheckbox).toBeDisabled();
+
+    const checkAllBtn = await page.locator("input[type='button']");
+    await checkAllBtn.click();
+
+    const option1 = page.locator("#ex1-check1");
+    const option2 = page.locator("#ex1-check2");
+    const option3 = page.locator("(//input[@id='ex1-check3'])[1]");
+    const option4 = page.locator("(//input[@id='ex1-check3'])[2]");
+    expect(option1).toBeChecked();
+    expect(option2).toBeChecked();
+    expect(option3).toBeChecked();
+    expect(option4).toBeChecked();
+    await checkAllBtn.click();
+    expect(option1).not.toBeChecked();
+    expect(option2).not.toBeChecked();
+    expect(option3).not.toBeChecked();
+    expect(option4).not.toBeChecked();
+})
