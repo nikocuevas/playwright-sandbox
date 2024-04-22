@@ -1,4 +1,5 @@
 import {expect, Page, test} from "@playwright/test";
+import moment from 'moment';
 
 
 test("simple form demo", async({ page }) => {
@@ -163,7 +164,7 @@ test("frames demo", async({ page }) => {
     await page.waitForTimeout(3000);
 })
 
-test.only("window and tabs demo", async({ page }) => {
+test("window and tabs demo", async({ page }) => {
     await page.goto("https://www.lambdatest.com/selenium-playground/window-popup-modal-demo");
 
     const [multiPage] = await Promise.all([
@@ -205,3 +206,43 @@ test.only("window and tabs demo", async({ page }) => {
     // newWindow.fill("",""); //interact with new window
     */
 });
+
+test("calendar demo using fill", async({ page })=> {
+    await page.goto("https://www.lambdatest.com/selenium-playground/bootstrap-date-picker-demo");
+    let date = "1994-04-12"
+
+    await page.fill("//input[@type='date']", date)
+});
+
+test("calendar demo using moment", async({ page })=> {
+    await page.goto("https://www.lambdatest.com/selenium-playground/bootstrap-date-picker-demo");
+    let date = "1994-04-12"
+
+    await selectDate(12, "December 2023");
+
+    await page.reload();
+
+    await selectDate(12, "December 2025");
+
+    await page.waitForTimeout(3000);
+
+    async function selectDate(date:number, dateToSelect:string) {
+        await page.click("//input[@placeholder='Start date']");
+
+        const mmYY = page.locator("(//th[@class='datepicker-switch'])[1]");
+        const prev = page.locator("(//th[@class='prev'])[1]");
+        const next = page.locator("(//th[@class='next'])[1]");
+
+        const thisMonth = moment(dateToSelect, "MMMM YYYY").isBefore();
+
+        while (await mmYY.textContent() != dateToSelect) {
+            if (thisMonth) {
+                await prev.click();
+            } else {
+                await next.click();
+            }
+        }
+
+        await page.click(`//td[text()='${date}']`);
+    }
+})
