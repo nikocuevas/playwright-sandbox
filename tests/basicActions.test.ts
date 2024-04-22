@@ -39,7 +39,7 @@ test("sum demo", async({ page }) => {
     expect(result).toHaveText("" + expectedResult);
 });
 
-test.only("checkbox demo", async({ page }) => {
+test("checkbox demo", async({ page }) => {
     await page.goto("https://www.lambdatest.com/selenium-playground/checkbox-demo");
     const singleCheckbox = await page.locator("id=isAgeSelected");
     expect(singleCheckbox).not.toBeChecked();
@@ -65,4 +65,45 @@ test.only("checkbox demo", async({ page }) => {
     expect(option2).not.toBeChecked();
     expect(option3).not.toBeChecked();
     expect(option4).not.toBeChecked();
-})
+});
+
+test("alerts demo 1", async({ page }) => {
+    await page.goto("https://www.lambdatest.com/selenium-playground/javascript-alert-box-demo");
+
+    page.on("dialog", async(alert) => {
+        const text = await alert.message();
+        console.log(text);
+        await alert.accept();
+    });
+
+    await page.locator("(//button[contains(@class,'btn btn-dark')])[1]").click();
+});
+
+test("alerts demo 2", async({ page }) => {
+    await page.goto("https://www.lambdatest.com/selenium-playground/javascript-alert-box-demo");
+
+    page.on("dialog", async(alert) => {
+        await alert.accept();
+    });
+
+    await page.locator("(//button[contains(@class,'btn btn-dark')])[2]").click();
+    expect(page.locator("#confirm-demo")).toContainText("You pressed OK!");
+});
+
+test("alerts demo 3", async({ page }) => {
+    await page.goto("https://www.lambdatest.com/selenium-playground/javascript-alert-box-demo");
+
+    page.on("dialog", async(alert) => {
+        await alert.accept("kyle");
+    });
+
+    await page.locator("(//button[contains(@class,'btn btn-dark')])[3]").click();
+    expect(page.locator("#prompt-demo")).toContainText("kyle");
+});
+
+test.only("bootstrap modal demo", async({ page }) => {
+    await page.goto("https://www.lambdatest.com/selenium-playground/bootstrap-modal-demo");
+
+    await page.locator("button[data-target='#myModal']").click();
+    await page.locator("(//button[text()='Save Changes'])[1]").click();
+});
