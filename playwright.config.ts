@@ -6,6 +6,9 @@ const config: PlaywrightTestConfig = {
     headless: false,
     screenshot: 'on',
     video: 'on',
+    launchOptions: {
+      slowMo: 1000,
+    }
   },
   retries: 1,
   timeout: 60000,

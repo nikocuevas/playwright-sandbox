@@ -101,9 +101,47 @@ test("alerts demo 3", async({ page }) => {
     expect(page.locator("#prompt-demo")).toContainText("kyle");
 });
 
-test.only("bootstrap modal demo", async({ page }) => {
+test("bootstrap modal demo", async({ page }) => {
     await page.goto("https://www.lambdatest.com/selenium-playground/bootstrap-modal-demo");
 
     await page.locator("button[data-target='#myModal']").click();
     await page.locator("(//button[text()='Save Changes'])[1]").click();
 });
+
+test("dropdown demo", async({ page }) => {
+    await page.goto("https://www.lambdatest.com/selenium-playground/select-dropdown-demo");
+
+    await page.selectOption("id=select-demo", {
+        // label: "Tuesday"
+        // value: "Tuesday"
+        index: 3
+    });
+    expect(page.locator("p.selected-value.text-size-14")).toContainText("Tuesday");
+
+    await page.selectOption("#multi-select", [
+        {
+            label: "California"
+        }, {
+            label: "New York"
+        }, {
+            label: "Washington"
+        }]);
+
+    await page.locator("button[value='Print First']").click();
+    await page.locator("button[value='Print All']").click();
+});
+
+test("bootstrap dropdown demo", async({ page}) => {
+    await page.goto("https://www.lambdatest.com/selenium-playground/jquery-dropdown-search-demo");
+    await selectCountry("India");
+    await selectCountry("Japan");
+    await selectCountry("United States of America");
+
+    async function selectCountry(countryName) {
+        await page.click("(//span[@role='combobox'])[1]");
+        await page.locator("#select2-country-results")
+            .locator("li", {
+                hasText: countryName
+            }).click();
+    };
+})
