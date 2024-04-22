@@ -1,5 +1,6 @@
 import {expect, Page, test} from "@playwright/test";
 import moment from 'moment';
+import path from 'path';
 
 
 test("simple form demo", async({ page }) => {
@@ -145,7 +146,7 @@ test("bootstrap dropdown demo", async({ page }) => {
                 hasText: countryName
             }).click();
     };
-})
+});
 
 test("frames demo", async({ page }) => {
     await page.goto("https://letcode.in/frame");
@@ -162,7 +163,7 @@ test("frames demo", async({ page }) => {
     await innerFrame.locator("input[name='email']").fill("kyle.automation.test@gmail.com");
 
     await page.waitForTimeout(3000);
-})
+});
 
 test("window and tabs demo", async({ page }) => {
     await page.goto("https://www.lambdatest.com/selenium-playground/window-popup-modal-demo");
@@ -245,4 +246,39 @@ test("calendar demo using moment", async({ page })=> {
 
         await page.click(`//td[text()='${date}']`);
     }
-})
+});
+
+test("download demo", async({ page }) => {
+    await page.goto("https://www.lambdatest.com/selenium-playground/generate-file-to-download-demo");
+    await page.type("#textbox", "Lorem ipsum dolor sit amet, consectetur adipiscing elit.t");
+    await page.click("#create");
+
+    const download = await Promise.all([
+        page.waitForEvent("download"),
+        page.click("//a[contains(text(),'Download')]")
+    ]);
+
+    const fileName = download[0].suggestedFilename();
+    const filePath = path.join('downloads', fileName);
+    await download[0].saveAs(filePath);
+    // const path = await download.path();
+    // console.log(path);
+});
+
+test("upload demo", async({ page }) => {
+    await page.goto("https://blueimp.github.io/jQuery-File-Upload/");
+    // await page.setInputFiles("//input[@type='file']",["uploads/sample-green-400x300.png",
+    //     "uploads/sample-red-400x300.png"]);
+
+    const [uploadFiles] = await Promise.all([
+        page.waitForEvent("filechooser"),
+        page.click("//input[@type='file']"),
+    ]);
+
+    const isMultiple = uploadFiles.isMultiple();
+    console.log(isMultiple)
+    uploadFiles.setFiles([
+        "uploads/sample-green-400x300.png",
+        "uploads/sample-red-400x300.png"
+    ]);
+});
