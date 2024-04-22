@@ -131,7 +131,7 @@ test("dropdown demo", async({ page }) => {
     await page.locator("button[value='Print All']").click();
 });
 
-test("bootstrap dropdown demo", async({ page}) => {
+test("bootstrap dropdown demo", async({ page }) => {
     await page.goto("https://www.lambdatest.com/selenium-playground/jquery-dropdown-search-demo");
     await selectCountry("India");
     await selectCountry("Japan");
@@ -144,4 +144,21 @@ test("bootstrap dropdown demo", async({ page}) => {
                 hasText: countryName
             }).click();
     };
+})
+
+test("frames demo", async({ page }) => {
+    await page.goto("https://letcode.in/frame");
+    const allFrames = page.frames();
+    console.log("No. of frames: " + allFrames.length);
+
+    const frame = page.frameLocator("#firstFr");
+    await frame.locator("//input[@name='fname']").fill("Kyle Niko");
+    await frame.locator("//input[@name='lname']").fill("Cuevas");
+    
+    expect(await frame.locator("//p[@class='title has-text-info']").textContent()).toContain("You have entered Kyle Niko Cuevas");
+
+    const innerFrame = frame.frameLocator("iframe[src='innerFrame']");
+    await innerFrame.locator("input[name='email']").fill("kyle.automation.test@gmail.com");
+
+    await page.waitForTimeout(3000);
 })
