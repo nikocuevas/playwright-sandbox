@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx playwright test"
+    "test": "npm run test:default",
+    "test:default": "npx playwright test pomtest/addToCart.test.ts",
+    "demo": "npx playwright test tests/basicActions.test.ts",
+    "report": "npx playwright show-report"
+
   },
   "keywords": [],
   "author": "",

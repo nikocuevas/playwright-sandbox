@@ -4,7 +4,7 @@ import LoginPage from "../pages/loginPage"
 import HomePage from "../pages/homePage"
 import MegaMenuPage from "../pages/megaMenuPage"
 
-const email = "kyle.automation.test+05@gmail.com"
+const email = "kyle.automation.test+09@gmail.com"
 const password = "Test1234!"
 
 test.describe("Page Object Test Demo", async() => {

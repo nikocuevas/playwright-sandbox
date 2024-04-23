@@ -1,9 +1,14 @@
-import {expect, Page, test} from "@playwright/test";
+import {chromium, expect, test} from "@playwright/test";
 import moment from 'moment';
 import path from 'path';
 
 
-test("simple form demo", async({ page }) => {
+test("simple form demo", async({}) => {
+    // Launch browser with slowMo
+    const browser = await chromium.launch({ slowMo: 2000 });
+    const context = await browser.newContext();
+    const page = await context.newPage();
+    
     await page.goto("https://www.lambdatest.com/selenium-playground/simple-form-demo");
     const messageInput = page.locator("(//input[@id='user-message'])[1]");
     console.log('Placeholder value: ' + await messageInput.getAttribute("placeholder"));
@@ -21,7 +26,12 @@ test("simple form demo", async({ page }) => {
     expect(messageOutput).toHaveText("test message");
 });
 
-test("sum demo", async({ page }) => {
+test("sum demo", async({}) => {
+    // Launch browser with slowMo
+    const browser = await chromium.launch({ slowMo: 2000 });
+    const context = await browser.newContext();
+    const page = await context.newPage();
+
     await page.goto("https://www.lambdatest.com/selenium-playground/simple-form-demo");
     const sumInput1 = page.locator("#sum1");
     const sumInput2 = page.locator("#sum2");
@@ -41,7 +51,12 @@ test("sum demo", async({ page }) => {
     expect(result).toHaveText("" + expectedResult);
 });
 
-test("checkbox demo", async({ page }) => {
+test("checkbox demo", async({}) => {
+    // Launch browser with slowMo
+    const browser = await chromium.launch({ slowMo: 2000 });
+    const context = await browser.newContext();
+    const page = await context.newPage();
+
     await page.goto("https://www.lambdatest.com/selenium-playground/checkbox-demo");
     const singleCheckbox = await page.locator("id=isAgeSelected");
     expect(singleCheckbox).not.toBeChecked();
@@ -69,7 +84,12 @@ test("checkbox demo", async({ page }) => {
     expect(option4).not.toBeChecked();
 });
 
-test("alerts demo 1", async({ page }) => {
+test("alerts demo 1", async({}) => {
+    // Launch browser with slowMo
+    const browser = await chromium.launch({ slowMo: 2000 });
+    const context = await browser.newContext();
+    const page = await context.newPage();
+
     await page.goto("https://www.lambdatest.com/selenium-playground/javascript-alert-box-demo");
 
     page.on("dialog", async(alert) => {
@@ -81,7 +101,12 @@ test("alerts demo 1", async({ page }) => {
     await page.locator("(//button[contains(@class,'btn btn-dark')])[1]").click();
 });
 
-test("alerts demo 2", async({ page }) => {
+test("alerts demo 2", async({}) => {
+    // Launch browser with slowMo
+    const browser = await chromium.launch({ slowMo: 2000 });
+    const context = await browser.newContext();
+    const page = await context.newPage();
+
     await page.goto("https://www.lambdatest.com/selenium-playground/javascript-alert-box-demo");
 
     page.on("dialog", async(alert) => {
@@ -92,7 +117,12 @@ test("alerts demo 2", async({ page }) => {
     expect(page.locator("#confirm-demo")).toContainText("You pressed OK!");
 });
 
-test("alerts demo 3", async({ page }) => {
+test("alerts demo 3", async({}) => {
+    // Launch browser with slowMo
+    const browser = await chromium.launch({ slowMo: 2000 });
+    const context = await browser.newContext();
+    const page = await context.newPage();
+
     await page.goto("https://www.lambdatest.com/selenium-playground/javascript-alert-box-demo");
 
     page.on("dialog", async(alert) => {
@@ -103,14 +133,24 @@ test("alerts demo 3", async({ page }) => {
     expect(page.locator("#prompt-demo")).toContainText("kyle");
 });
 
-test("bootstrap modal demo", async({ page }) => {
+test("bootstrap modal demo", async({}) => {
+    // Launch browser with slowMo
+    const browser = await chromium.launch({ slowMo: 2000 });
+    const context = await browser.newContext();
+    const page = await context.newPage();
+
     await page.goto("https://www.lambdatest.com/selenium-playground/bootstrap-modal-demo");
 
     await page.locator("button[data-target='#myModal']").click();
     await page.locator("(//button[text()='Save Changes'])[1]").click();
 });
 
-test("dropdown demo", async({ page }) => {
+test("dropdown demo", async({}) => {
+    // Launch browser with slowMo
+    const browser = await chromium.launch({ slowMo: 2000 });
+    const context = await browser.newContext();
+    const page = await context.newPage();
+
     await page.goto("https://www.lambdatest.com/selenium-playground/select-dropdown-demo");
 
     await page.selectOption("id=select-demo", {
@@ -133,7 +173,12 @@ test("dropdown demo", async({ page }) => {
     await page.locator("button[value='Print All']").click();
 });
 
-test("bootstrap dropdown demo", async({ page }) => {
+test("bootstrap dropdown demo", async({}) => {
+    // Launch browser with slowMo
+    const browser = await chromium.launch({ slowMo: 2000 });
+    const context = await browser.newContext();
+    const page = await context.newPage();
+
     await page.goto("https://www.lambdatest.com/selenium-playground/jquery-dropdown-search-demo");
     await selectCountry("India");
     await selectCountry("Japan");
@@ -148,7 +193,12 @@ test("bootstrap dropdown demo", async({ page }) => {
     };
 });
 
-test("frames demo", async({ page }) => {
+test("frames demo", async({}) => {
+    // Launch browser with slowMo
+    const browser = await chromium.launch({ slowMo: 2000 });
+    const context = await browser.newContext();
+    const page = await context.newPage();
+
     await page.goto("https://letcode.in/frame");
     const allFrames = page.frames();
     console.log("No. of frames: " + allFrames.length);
@@ -161,11 +211,14 @@ test("frames demo", async({ page }) => {
 
     const innerFrame = frame.frameLocator("iframe[src='innerFrame']");
     await innerFrame.locator("input[name='email']").fill("kyle.automation.test@gmail.com");
-
-    await page.waitForTimeout(3000);
 });
 
-test("window and tabs demo", async({ page }) => {
+test("window and tabs demo", async({}) => {
+    // Launch browser with slowMo
+    const browser = await chromium.launch({ slowMo: 2000 });
+    const context = await browser.newContext();
+    const page = await context.newPage();
+
     await page.goto("https://www.lambdatest.com/selenium-playground/window-popup-modal-demo");
 
     const [multiPage] = await Promise.all([
@@ -208,24 +261,28 @@ test("window and tabs demo", async({ page }) => {
     */
 });
 
-test("calendar demo using fill", async({ page })=> {
+test("calendar demo using fill", async({})=> {
+    // Launch browser with slowMo
+    const browser = await chromium.launch({ slowMo: 2000 });
+    const context = await browser.newContext();
+    const page = await context.newPage();
+
     await page.goto("https://www.lambdatest.com/selenium-playground/bootstrap-date-picker-demo");
     let date = "1994-04-12"
 
     await page.fill("//input[@type='date']", date)
 });
 
-test("calendar demo using moment", async({ page })=> {
+test("calendar demo using moment", async({})=> {
+    // Launch browser with slowMo
+    const browser = await chromium.launch({ slowMo: 2000 });
+    const context = await browser.newContext();
+    const page = await context.newPage();
+
     await page.goto("https://www.lambdatest.com/selenium-playground/bootstrap-date-picker-demo");
     let date = "1994-04-12"
 
     await selectDate(12, "December 2023");
-
-    await page.reload();
-
-    await selectDate(12, "December 2025");
-
-    await page.waitForTimeout(3000);
 
     async function selectDate(date:number, dateToSelect:string) {
         await page.click("//input[@placeholder='Start date']");
@@ -248,7 +305,12 @@ test("calendar demo using moment", async({ page })=> {
     }
 });
 
-test("download demo", async({ page }) => {
+test("download demo", async({}) => {
+    // Launch browser with slowMo
+    const browser = await chromium.launch({ slowMo: 2000 });
+    const context = await browser.newContext();
+    const page = await context.newPage();
+
     await page.goto("https://www.lambdatest.com/selenium-playground/generate-file-to-download-demo");
     await page.type("#textbox", "Lorem ipsum dolor sit amet, consectetur adipiscing elit.t");
     await page.click("#create");
@@ -265,7 +327,12 @@ test("download demo", async({ page }) => {
     // console.log(path);
 });
 
-test("upload demo", async({ page }) => {
+test("upload demo", async({}) => {
+    // Launch browser with slowMo
+    const browser = await chromium.launch({ slowMo: 2000 });
+    const context = await browser.newContext();
+    const page = await context.newPage();
+
     await page.goto("https://blueimp.github.io/jQuery-File-Upload/");
     // await page.setInputFiles("//input[@type='file']",["uploads/sample-green-400x300.png",
     //     "uploads/sample-red-400x300.png"]);
