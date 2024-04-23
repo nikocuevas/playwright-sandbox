@@ -1,8 +1,9 @@
 import { PlaywrightTestConfig } from '@playwright/test';
 
 const config: PlaywrightTestConfig = {
-  testMatch: ["tests/basicActions.test.ts"],
+  testMatch: ["pomtest/addToCart.test.ts"],
   use: {
+    baseURL: "https://ecommerce-playground.lambdatest.io/index.php?",
     headless: false,
     screenshot: 'on',
     video: 'on',
@@ -11,7 +12,7 @@ const config: PlaywrightTestConfig = {
     }
   },
   retries: 1,
-  timeout: 60000,
+  timeout: 30000,
   reporter: [["dot"], 
   // ["json", {
   //   outputFile: "jsonReports/jsonReport.json"
