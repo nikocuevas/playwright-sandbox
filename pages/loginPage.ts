@@ -6,6 +6,12 @@ export default class LoginPage {
         
     }
 
+    async login(email,password) {
+        await this.enterEmail(email)
+        await this.enterPassword(password)
+        await this.clickLogin();
+    }
+
     async enterEmail(email:string) {
         await this.page.locator("#input-email")
             .fill(email)
@@ -17,6 +23,9 @@ export default class LoginPage {
     }
 
     async clickLogin() {
-        await this.page.click("input[type='submit']");
+        await Promise.all([
+            this.page.waitForNavigation({waitUntil:"networkidle"}),
+            this.page.click("input[type='submit']")
+        ])
     }
 }

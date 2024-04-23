@@ -6,21 +6,21 @@ export default class HomePage {
         
     }
 
-    async clickOnSpecialHotMenu(email:string) {
-        await this.page.click("'Special Hot'")
+    async clickHomeMenu() {
+        await Promise.all([
+            this.page.waitForNavigation({waitUntil:"networkidle"}),
+            await this.page.click("'Home'")
+        ])
     }
 
-    async addFirstiMacToCart() {
-        await this.page.hover("(//img[@alt='iMac'])[1]", {
-            strict: false
-        })
-        await this.page.locator("(//button[@title='Add to Cart']//i)[1]").click();
+    async hoverOnMegaMenu() {
+        await this.page.hover("'Mega Menu'")
     }
 
-    async isVisible() {
-        const toast = this.page.locator("//a[contains(.,'View Cart')]")
-        await toast.waitFor({state:"visible"})
-        return toast;
+    async clickApple() {
+        await Promise.all([
+            this.page.waitForNavigation({waitUntil:"networkidle"}),
+            await this.page.click("'Apple'")
+        ])
     }
-
 }
