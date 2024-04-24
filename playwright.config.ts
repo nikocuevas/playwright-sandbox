@@ -1,8 +1,9 @@
 import { PlaywrightTestConfig } from '@playwright/test';
 
 const config: PlaywrightTestConfig = {
-  testMatch: ["pomtest/addToCart.test.ts", "tests/basicActions.test.ts"],
+  testMatch: ["pomtest/addToCart.test.ts", "tests/basicActions.test.ts", "tests/email.test.ts"],
   use: {
+    actionTimeout: 0, // temporary for email testing
     baseURL: "https://ecommerce-playground.lambdatest.io/index.php?",
     headless: false,
     screenshot: 'on',

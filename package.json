@@ -7,8 +7,8 @@
     "test": "npm run test:default",
     "test:default": "npx playwright test pomtest/addToCart.test.ts",
     "demo": "npx playwright test tests/basicActions.test.ts",
+    "email": "npx playwright test tests/email.test.ts",
     "report": "npx playwright show-report"
-
   },
   "keywords": [],
   "author": "",
@@ -17,5 +17,8 @@
     "@playwright/test": "^1.43.1",
     "@types/node": "^20.12.7",
     "moment": "^2.30.1"
+  },
+  "dependencies": {
+    "mailslurp-client": "^15.20.0"
   }
 }
