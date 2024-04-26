@@ -1,17 +1,17 @@
 import { expect, test } from "@playwright/test"
-import RegisterPage from "../pages/registerPage"
-import LoginPage from "../pages/loginPage"
-import HomePage from "../pages/homePage"
-import MegaMenuPage from "../pages/megaMenuPage"
+import RegisterPage from "../pomtest/registerPage"
+import LoginPage from "../pomtest/loginPage"
+import HomePage from "../pomtest/homePage"
+import MegaMenuPage from "../pomtest/megaMenuPage"
 
 const email = "kyle.automation.test+11@gmail.com"
 const password = "Test1234!"
 
 test.describe("Page Object Test Demo", async() => {
 
-    test("Register test_01", async({ page, baseURL }) => {
+    test("Register test_01", async({ page }) => {
         const register = new RegisterPage(page);
-        await page.goto(`${baseURL}route=account/register`);
+        await page.goto(`https://ecommerce-playground.lambdatest.io/index.php?route=account/register`);
         await register.enterFirstName("Kyle");
         await register.enterLastName("Cuevas");
         await register.entereEmail(email);

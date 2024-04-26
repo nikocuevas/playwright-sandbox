@@ -1,5 +1,6 @@
 import { test, expect, chromium } from "@playwright/test";
 import MailSlurp from "mailslurp-client";
+require('dotenv').config()
 
 test.describe('test email login with playwright', () => {
 
@@ -9,7 +10,7 @@ test("email code retrieval", async({}) => {
     const context = await browser.newContext();
     const page = await context.newPage();
 
-    const apiKey = "797331bb6194fe87cce3532874c5c81c326bdab827edcca3e94d36bdd2863561";
+    const apiKey = process.env.MAILSLURP_API_KEY || 'your_default_api_key';
     expect(apiKey).toBeDefined();
 
     // load playground app
@@ -19,8 +20,6 @@ test("email code retrieval", async({}) => {
     // create a new inbox
     const mailslurp = new MailSlurp({ apiKey })
     const password = "test-password"
-    // const { id, emailAddress } = await mailslurp.createInbox("5m")
-
     const { id, emailAddress } = await mailslurp.inboxController.createInbox({
         expiresIn: 5 * 60 * 1000, // expire in 5 minutes
     })

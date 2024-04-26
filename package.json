@@ -19,6 +19,11 @@
     "moment": "^2.30.1"
   },
   "dependencies": {
-    "mailslurp-client": "^15.20.0"
+    "@faker-js/faker": "^8.4.1",
+    "dotenv": "^16.4.5",
+    "mailslurp-client": "^15.20.0",
+    "prompt-sync": "^4.2.0",
+    "readline-sync": "^1.4.10",
+    "xlsx": "^0.18.5"
   }
 }
